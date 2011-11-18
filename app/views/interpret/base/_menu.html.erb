@@ -1,0 +1,28 @@
+<div class="menu grid_12">
+  <%= link_to "Overview", translations_path, :class => controller_name == "translations" && action_name == "index" ? "current" : "" %>
+
+  <% if can? :use, :tools%>
+    | <%= link_to "Tools", tools_path, :class => controller_name == "tools" ? "current" : "" %>
+  <% end%>
+
+  <% if can? :use, :search%>
+    | <%= link_to "Search", translations_search_path, :class => controller_name == "search" ? "current" : ""%>
+  <% end%>
+
+  <% if can? :read, :missing_translations%>
+    | <%= link_to "Missing translations", missing_translations_path, :class => controller_name == "missing_translations" && action_name == "index" ? "current" : ""%>
+  <% end%>
+
+  <% if can? :read, :stale_translations%>
+    | <%= link_to "Stale translations", stale_translations_path, :class => controller_name == "missing_translations" && action_name == "stale" ? "current" : ""%>
+  <% end%>
+
+  <% if can? :read, :blank_translations%>
+    | <%= link_to "Blank translations", blank_translations_path, :class => controller_name == "missing_translations" && action_name == "blank" ? "current" : ""%>
+  <% end%>
+
+  <% if can? :read, :unused_translations%>
+    | <%= link_to "Unused translations", unused_translations_path, :class => controller_name == "missing_translations" && action_name == "unused" ? "current" : ""%>
+  <% end%>
+  <hr />
+</div>

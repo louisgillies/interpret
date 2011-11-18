@@ -16,7 +16,7 @@
     </thead>
     <% @unused_translations.each do |trans| %>
       <tr>
-        <td><%= trans.key %></td>
+        <td class="key"><%= trans.key %></td>
         <td><%= trans.value %></td>
         <td>
           <%= link_to "Destroy it", trans, :method => :delete, :confirm => "Are you sure?" %>

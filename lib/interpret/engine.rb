@@ -3,7 +3,6 @@ require 'interpret/helpers'
 
 module Interpret
   class Engine < Rails::Engine
-    isolate_namespace Interpret
 
     initializer "interpret.register_i18n_active_record_backend" do |app|
       app.config.after_initialize do
@@ -23,7 +22,18 @@ module Interpret
       Interpret.logger = InterpretLogger.new(logfile)
     end
 
-
+    initializer "interpret.isolate" do |app|
+      app.config.after_initialize do
+        isolate_namespace Interpret if Interpret.isolate_namespace
+      end
+    end
+    
+    initializer "interpret.locale_files" do |app|
+      app.config.after_initialize do
+        Interpret.load_path = I18n.load_path if Interpret.load_path.nil?
+      end
+    end
+    
     initializer "interpret.register_observer" do |app|
       #app.config.before_initialize do |app|
         require 'active_record'

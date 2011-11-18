@@ -52,7 +52,7 @@ module Interpret
     end
 
     def create
-      @translation = Interpret::Translation.new params[:translation]
+      @translation = Interpret::Translation.new params[:interpret_translation]
 
       if @translation.save
         flash[:notice] = "New translation created for #{@translation.key}"
