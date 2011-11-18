@@ -1,10 +1,10 @@
 <% interpret_title "Interpret - Translations" %>
 
 <div id="header">
-  <h1>Translations for [<%= I18n.locale %>]</h1>
+  <h1>Translations for [<%= Interpret::Locale.name(I18n.locale) %>]</h1>
 </div>
 <p>
-There is a total of <%= @total_keys_number %> translations for [ <%= I18n.locale %> ].
+There is a total of <%= @total_keys_number %> translations for [ <%= Interpret::Locale.name(I18n.locale) %> ].
 </p>
 <p>
 Below are the translations without any particulary key in your application.

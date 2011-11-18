@@ -2,14 +2,8 @@ class Interpret::MissingTranslationsController < Interpret::BaseController
   def index
     authorize! :read, :missing_translations
     return if I18n.locale == I18n.default_locale
-
-    case ActiveRecord::Base.connection.adapter_name
-    when "Mysql2"
+    if Interpret.supported_adapters.include?(ActiveRecord::Base.connection.adapter_name.downcase)
       res = ActiveRecord::Base.connection.execute("select t.id from translations t where t.locale ='#{I18n.default_locale}' and (select count(*) from translations t2 where t2.key = t.key and t2.locale ='#{I18n.locale}') = 0")
-
-    when "SQLite"
-      res = ActiveRecord::Base.connection.execute("select t.id from translations t where t.locale ='#{I18n.default_locale}' and (select count(*) from translations t2 where t2.key = t.key and t2.locale ='#{I18n.locale}') = 0")
-
     else
       raise NotImplementedError, "database adapter not supported"
     end
