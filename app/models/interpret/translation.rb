@@ -104,7 +104,7 @@ module Interpret
       # If Interpret.soft is set to false, all existing translations will be
       # removed
       def dump
-        files = Dir[Rails.root.join("config", "locales", "*.yml").to_s]
+        files = Interpret.load_path
         delete_all unless Interpret.soft
 
         records = []
@@ -179,7 +179,7 @@ module Interpret
       #   needed.
       #
       def update
-        files = Dir[Rails.root.join("config", "locales", "*.yml").to_s]
+        files = Interpret.load_path
 
         @languages = {}
         files.each do |f|
